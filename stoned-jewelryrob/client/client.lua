@@ -638,7 +638,7 @@ Citizen.CreateThread(function()
                 for _,v in pairs(JewelryShowcase) do
                     local distance2 = #(vec3(v.x,v.y,v.z)- GetEntityCoords(ped))
                     --if Config.Rob1stPaintings then
-                        if distance2 <= 1.1 and not andamento and hasRobberyStarted then
+                    if distance2 <= 1.1 and hasRobberyStarted then --if distance2 <= 1.1 and not andamento and hasRobberyStarted then
                             sleep = 1
                             DrawText3Ds(v.x,v.y,v.z+0.55, _L('get_jewels'))
                             if IsControlJustPressed(0,38) and not IsPedInAnyVehicle(ped) then

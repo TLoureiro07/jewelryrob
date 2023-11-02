@@ -238,7 +238,7 @@ Citizen.CreateThread(function()
     end
 end)
 
------ TARGET --------
+--[[----- TARGET --------
 local paintings = Config['ArtHeist']['painting']
 local vitrines = {
     "des_jewel_cab2_end",
@@ -258,7 +258,7 @@ for k, painting in ipairs(paintings) do
             label = _L('start_stealing'),
         }
     })
-end
+end]]
 
 
 Citizen.CreateThread(function()

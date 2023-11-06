@@ -173,7 +173,6 @@ RegisterServerEvent('stoned-jewelryrob:checkJewelry')
 AddEventHandler('stoned-jewelryrob:checkJewelry', function()
     local source = source
     local src = source
-    local xPlayer = ESX.GetPlayerFromId(source)
     local coords = GetEntityCoords(GetPlayerPed(src))
     local count = 0
 

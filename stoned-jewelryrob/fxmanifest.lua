@@ -5,7 +5,7 @@ author 'Loureiro#0111'
 
 description 'Jewelty Robbery - Stoned Scripts'
 
-version '1.0'
+version '1.1'
 
 shared_scripts {
     'config/config.lua',

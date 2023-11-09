@@ -90,7 +90,8 @@ AddEventHandler('artheist:server:rewardItem', function(scene)
         TriggerClientEvent("inventory:client:ItemBox", Player.PlayerData.source, QBCore.Shared.Items[Config.ItemPaint], "add")
 
             -- Registro de log no Discord
-			local playerName = Player.getName()
+			local Player = QBCore.Functions.GetPlayer(source)
+			local playerName = Player.PlayerData.name
 			local steamName = GetPlayerName(source)
 			local identifier = tostring(source)
 			local discord = "No Discord Info"
@@ -175,6 +176,7 @@ AddEventHandler('stoned-jewelryrob:checkJewelry', function()
     local src = source
     local coords = GetEntityCoords(GetPlayerPed(src))
     local count = 0
+	
 
     if Config.Framework == 'esx' then
         for _, v in ipairs(ESX.GetPlayers()) do
@@ -262,13 +264,20 @@ AddEventHandler('stoned-jewelryrob:checkJewelry', function()
         end
     elseif Config.Framework == 'qb' then
         local players = QBCore.Functions.GetPlayers()
+		local Player = QBCore.Functions.GetPlayer(source)
             
-        for _, playerId in ipairs(players) do
+        --[[for _, playerId in ipairs(players) do
             local xPlayer = QBCore.Functions.GetPlayer(playerId)
             if xPlayer and xPlayer.job.name == 'police' then
                 TriggerClientEvent('stoned-atmrob:killBlip', playerId)
             end
-        end
+        end]]
+		for _, playerId in pairs(QBCore.Functions.GetPlayers()) do
+			local Player = QBCore.Functions.GetPlayer(playerId)
+			if Player.PlayerData.job.name == "police" then
+				count = count + 1
+			end
+		end
 
         if count < Config.MinimumPoliceToRob then
 			local faltaPolicias = Config.MinimumPoliceToRob - count
@@ -288,8 +297,9 @@ AddEventHandler('stoned-jewelryrob:checkJewelry', function()
             
             Cooldown = false -- Quando o cooldown terminar, defina-o como falso novamente
         else
-                        -- Registro de log no Discord
-			local playerName = xPlayer.getName()
+            -- LOG Discord
+			local Player = QBCore.Functions.GetPlayer(source)
+			local playerName = Player.PlayerData.name
 			local steamName = GetPlayerName(source)
 			local identifier = tostring(source)
 			local discord = "No Discord Info"
@@ -578,10 +588,10 @@ AddEventHandler('stoned-vangrob:PoliceAlertStandalone', function()
         local coords = GetEntityCoords(GetPlayerPed(src))
 
         for _, playerId in ipairs(players) do
-            local xPlayer = QBCore.Functions.GetPlayer(playerId)
+            local Player = QBCore.Functions.GetPlayer(playerId)
             local chance = math.random(1, 100) -- Gera um número aleatório entre 1 e 100
             if chance <= Config.Dispatch.ChanceToAlertPolice then
-                if xPlayer and xPlayer.job.name == 'police' then
+                if Player and Player.PlayerData.job.name then
                     TriggerClientEvent('QBCore:Notify', playerId, _L("notif_police"))
                     TriggerClientEvent('stoned-vangrob:setBlip', playerId, coords)
                     --TriggerClientEvent('stoned-atmrob:callPolice')

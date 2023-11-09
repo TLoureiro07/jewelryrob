@@ -238,6 +238,8 @@ Citizen.CreateThread(function()
     end
 end)
 
+-- SOON
+--[[
 ----- TARGET --------
 local paintings = Config['ArtHeist']['painting']
 local vitrines = {
@@ -259,7 +261,7 @@ for k, painting in ipairs(paintings) do
         }
     })
 end
-
+]]
 
 Citizen.CreateThread(function()
     while true do
